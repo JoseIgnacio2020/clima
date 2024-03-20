@@ -14,8 +14,11 @@ export class DashboardComponent implements OnInit {
   urlImagen = 'https://cdn-icons-png.flaticon.com/512/1116/1116453.png';
   ciudad = '';
   temperatura = 0;
+  temperaturaMax = 0;
+  temperaturaMin = 0;
   humedad = 0;
   clima = '';
+  locacion = '';
   query = false;
   loading = false;
   mostrarError = false;
@@ -33,12 +36,12 @@ export class DashboardComponent implements OnInit {
       this.loading = false;
       this.query = true;
       console.log(data);
-      this.temperatura = data.main.temp;
+      this.temperatura = Math.round(data.main.temp);
+      this.temperaturaMax = Math.round(data.main.temp_max);
+      this.temperaturaMin = Math.round(data.main.temp_min);
       this.humedad = data.main.humidity;
       this.clima = data.weather[0].description;
-      /*  this.temperatura = data.main.temp - 273;
-        this.humedad = data.main.humidity;
-        this.clima = data.weather[0].main; */
+      this.locacion = data.name;
     },error => {
       console.log(error);
       this.loading = false;
